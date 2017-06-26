@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "451948794432",
+    "firebase_url": "https://chatapp-b5142.firebaseio.com",
+    "project_id": "chatapp-b5142",
+    "storage_bucket": "chatapp-b5142.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:451948794432:android:563f6a4522ef1e59",
+        "android_client_info": {
+          "package_name": "com.example.vivin.chatapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "451948794432-11v15deueodp8ciud8ok019db4a4h8js.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.vivin.chatapp",
+            "certificate_hash": "97f42ffd9edc9e7c9a230b07679f0379af6b0833"
+          }
+        },
+        {
+          "client_id": "451948794432-9q3msljq33ojtquv6ivol33h0vs6p8go.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCG2-M4oUZ3BGMmJySoKwvivbbfA1fBz9E"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "451948794432-9q3msljq33ojtquv6ivol33h0vs6p8go.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
