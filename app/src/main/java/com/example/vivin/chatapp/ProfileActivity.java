@@ -223,7 +223,7 @@ public class ProfileActivity extends AppCompatActivity {
 
                 }
 
-                                     // ----------          REQUEST RECEIVED STATE          ----------//
+                                     // ----------          REQUEST RECEIVED STATE         ----------//
             }
         });
 
