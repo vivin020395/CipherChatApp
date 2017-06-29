@@ -19,8 +19,12 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+
+import java.text.DateFormat;
+import java.util.Date;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -31,6 +35,7 @@ public class ProfileActivity extends AppCompatActivity {
     private DatabaseReference mUsersDatabase;
 
     private DatabaseReference mFriendRequestDatabase;
+    private DatabaseReference mFriendDatabase;
     private ProgressDialog mProgressDialog;
 
     private FirebaseUser mCurrentUser;
@@ -46,6 +51,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         mUsersDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(user_id);
         mFriendRequestDatabase = FirebaseDatabase.getInstance().getReference().child("Friend_req");
+        mFriendDatabase = FirebaseDatabase.getInstance().getReference().child("Friends");
         mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
 
         mProfileImage = (ImageView) findViewById(R.id.profile_image);
@@ -178,6 +184,46 @@ public class ProfileActivity extends AppCompatActivity {
                 }
 
                                      // ----------          CANCEL REQUEST STATE          ----------//
+
+                                     // ----------          REQUEST RECEIVED STATE          ----------//
+                if(mCurrent_state.equals("req_received")){
+
+                    final String currentDate = DateFormat.getDateTimeInstance().format(new Date());
+                    mFriendDatabase.child(mCurrentUser.getUid()).child(user_id).setValue(currentDate).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            mFriendDatabase.child(user_id).child(mCurrentUser.getUid()).setValue(currentDate).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+
+
+                                    mFriendRequestDatabase.child(mCurrentUser.getUid()).child(user_id).removeValue()
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+
+                                                    mFriendRequestDatabase.child(user_id).child(mCurrentUser.getUid()).removeValue()
+                                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                @Override
+                                                                public void onSuccess(Void aVoid) {
+                                                                    mProfileSendRequestBtn.setEnabled(true);
+                                                                    mCurrent_state="friends";
+                                                                    mProfileSendRequestBtn.setText("UNFRIEND");
+                                                                }
+                                                            });
+
+                                                }
+                                            });
+
+
+                                }
+                            });
+                        }
+                    });
+
+                }
+
+                                     // ----------          REQUEST RECEIVED STATE          ----------//
             }
         });
 
