@@ -102,6 +102,26 @@ public class ProfileActivity extends AppCompatActivity {
                                 mProfileSendRequestBtn.setText("CANCEL FRIEND REQUEST");
 
                             }
+                            mProgressDialog.dismiss();
+
+                        } else {
+
+                            mFriendDatabase.child(mCurrentUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    if(dataSnapshot.hasChild(user_id)){
+
+                                        mCurrent_state="friends";
+                                        mProfileSendRequestBtn.setText("UNFRIEND");
+                                    }
+                                    mProgressDialog.dismiss();
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+                                    mProgressDialog.dismiss();
+                                }
+                            });
                         }
 
                         mProgressDialog.dismiss();
@@ -109,7 +129,7 @@ public class ProfileActivity extends AppCompatActivity {
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
-
+                        mProgressDialog.dismiss();
                     }
                 });
 
